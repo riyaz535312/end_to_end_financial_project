@@ -1,0 +1,24 @@
+# Data files
+data/raw/
+data/processed/
+data/output/
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+venv/
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+#This tells Git:
+#Don't upload my datasets, Python cache files, virtual environments, etc.
+#
+#Your Python code will be uploaded.
+#Your 6.3M-row CSV will not.
