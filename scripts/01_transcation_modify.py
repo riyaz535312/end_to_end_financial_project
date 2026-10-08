@@ -17,3 +17,8 @@ print("\n Is fraud column")
 print(df['isFraud'].value_counts())
 print("\n Type(transactions) column")
 print(df.type.value_counts())
+print(df.step.value_counts())
+
+# to load data into chunks
+for chunk in pd.read_csv(file_path, chunksize=100000):
+    print(len(chunk))
