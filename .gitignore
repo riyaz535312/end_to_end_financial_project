@@ -2,7 +2,8 @@
 data/raw/
 data/processed/
 data/output/
-
+data/generated/
+data/test_input/
 # Python
 __pycache__/
 *.pyc
@@ -20,5 +21,5 @@ venv/
 #This tells Git:
 #Don't upload my datasets, Python cache files, virtual environments, etc.
 #
-#Your Python code will be uploaded.
-#Your 6.3M-row CSV will not.
+# Python code will be uploaded.
+# 6.3M-row CSV will not.

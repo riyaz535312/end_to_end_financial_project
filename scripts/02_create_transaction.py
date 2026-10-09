@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 
 
 file_path= "C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\raw\\PS_20174392719_log.csv"
@@ -145,3 +146,147 @@ transactions['merchant_id']=np.random.choice(
 )
 
 print(transactions.head())
+
+#####################
+#  Create the Fraud System
+
+fraud_transactions=transactions[transactions['fraud_ground_truth'] ==1 ].copy()
+
+fraud_events=pd.DataFrame({
+    "fraud_event_id": [
+        f"FRD{i:08d}" for i in range(1, len(fraud_transactions) + 1)
+    ],
+    "transaction_id":fraud_transactions["transaction_id"].values,
+    "risk_score" : np.random.uniform(
+        0.89,
+        0.99,
+        len(fraud_transactions)
+    ),
+    "risk_reason": np.random.choice(
+         [
+            "UNUSUAL_AMOUNT",
+            "UNUSUAL_TRANSFER",
+            "ACCOUNT_ANOMALY",
+            "SUSPICIOUS_PATTERN"
+        ],
+        len(fraud_transactions)
+    ),
+    "investigation_status": "OPEN"
+})
+
+print(fraud_events.head())
+
+print("Transactions:", len(transactions))
+print("Customers:", len(customers))
+print("Accounts:", len(accounts))
+print("Merchants:", len(merchants))
+print("Fraud Events:", len(fraud_events))
+
+
+
+#---------
+# Unique originators and destinations
+unique_sources = transactions["source_account_id"].nunique()
+unique_destinations = transactions["destination_account_id"].nunique()
+
+# Overlap between source and destination identifiers
+source_ids = set(transactions["source_account_id"].dropna())
+destination_ids = set(transactions["destination_account_id"].dropna())
+
+print("Unique source IDs:", f"{unique_sources:,}")
+print("Unique destination IDs:", f"{unique_destinations:,}")
+print("IDs appearing in both columns:", f"{len(source_ids & destination_ids):,}")
+print("Unique IDs across both columns:", f"{len(source_ids | destination_ids):,}")
+
+# Validate the account master
+print("Account rows:", f"{len(accounts):,}")
+print("Unique account IDs:", f"{accounts['account_id'].nunique():,}")
+print("Duplicate account IDs:", f"{accounts['account_id'].duplicated().sum():,}")
+
+# Inspect identifier patterns
+print(
+    transactions["source_account_id"]
+    .astype("string")
+    .str[0]
+    .value_counts(dropna=False)
+)
+
+print(
+    transactions["destination_account_id"]
+    .astype("string")
+    .str[0]
+    .value_counts(dropna=False)
+)
+# --------------
+
+#################################
+## simulate daily files
+#
+#transactions["transaction_date"]=transactions["transaction_timestamp"].dt.date
+#
+#for transaction_date,daily_data_group in transactions.groupby('transaction_date'):
+#    # directory path (without the file name)
+#    output_dir=f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\transactions\\{transaction_date}"
+#
+#    os.makedirs(output_dir, exist_ok=True) ## make sure the folder exists
+#
+#    output_path=f"{output_dir}\\transactions.csv"
+#
+#    daily_data_group.to_csv(
+#        output_path,
+#        index=False  ## to eliminate the pandas df index column
+#    )
+#
+
+########################
+# create different formats for all the tables
+
+# creating single transaction file
+
+"""
+# to csv
+
+os.makedirs(f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\transactions\\",exist_ok=True)
+
+transactions.to_csv(
+    f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\transactions\\transactions.csv",
+    index=False
+)
+
+#to json 
+ # creating folders for the files
+os.makedirs(f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\customers\\",exist_ok=True)
+
+customers.to_json(
+    f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\customers\\customers.json",
+    orient="records",
+    lines=True
+)
+
+os.makedirs(f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\fraud_events\\",exist_ok=True)
+
+fraud_events.to_json(
+    f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\fraud_events\\fraud_events.json",
+    orient="records",
+    lines=False
+)
+
+#to parquet
+
+os.makedirs(f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\accounts\\",exist_ok=True)
+
+accounts.to_parquet(
+    f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\accounts\\accounts.parquet",
+    index=False
+)
+
+# to csv
+
+os.makedirs(f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\merchants\\",exist_ok=True)
+
+merchants.to_csv(
+    f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\merchants\\merchants.csv",
+    index=False
+)
+
+"""
