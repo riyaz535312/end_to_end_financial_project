@@ -20,7 +20,7 @@ import numpy as np
 # --------------------------------------------------
 
 BASE = (
-    r"C:\Users\Admin\OneDrive\Documents"
+    r"C:\\MyProjects"
     r"\MyProjects\data"
 )
 

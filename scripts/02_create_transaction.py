@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 
-file_path= "C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\raw\\PS_20174392719_log.csv"
+file_path= "C:\\MyProjects\\data\\raw\\PS_20174392719_log.csv"
 
 df=pd.read_csv(file_path)
 
@@ -226,7 +226,7 @@ print(
 #
 #for transaction_date,daily_data_group in transactions.groupby('transaction_date'):
 #    # directory path (without the file name)
-#    output_dir=f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\transactions\\{transaction_date}"
+#    output_dir=f"C:\\MyProjects\\data\\generated\\transactions\\{transaction_date}"
 #
 #    os.makedirs(output_dir, exist_ok=True) ## make sure the folder exists
 #
@@ -246,46 +246,46 @@ print(
 """
 # to csv
 
-os.makedirs(f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\transactions\\",exist_ok=True)
+os.makedirs(f"C:\\MyProjects\\data\\generated\\transactions\\",exist_ok=True)
 
 transactions.to_csv(
-    f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\transactions\\transactions.csv",
+    f"C:\\MyProjects\\data\\generated\\transactions\\transactions.csv",
     index=False
 )
 
 #to json 
  # creating folders for the files
-os.makedirs(f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\customers\\",exist_ok=True)
+os.makedirs(f"C:\\MyProjects\\data\\generated\\customers\\",exist_ok=True)
 
 customers.to_json(
-    f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\customers\\customers.json",
+    f"C:\\MyProjects\\data\\generated\\customers\\customers.json",
     orient="records",
     lines=True
 )
 
-os.makedirs(f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\fraud_events\\",exist_ok=True)
+os.makedirs(f"C:\\MyProjects\\data\\generated\\fraud_events\\",exist_ok=True)
 
 fraud_events.to_json(
-    f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\fraud_events\\fraud_events.json",
+    f"C:\\MyProjects\\data\\generated\\fraud_events\\fraud_events.json",
     orient="records",
     lines=False
 )
 
 #to parquet
 
-os.makedirs(f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\accounts\\",exist_ok=True)
+os.makedirs(f"C:\\MyProjects\\data\\generated\\accounts\\",exist_ok=True)
 
 accounts.to_parquet(
-    f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\accounts\\accounts.parquet",
+    f"C:\\MyProjects\\data\\generated\\accounts\\accounts.parquet",
     index=False
 )
 
 # to csv
 
-os.makedirs(f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\merchants\\",exist_ok=True)
+os.makedirs(f"C:\\MyProjects\\data\\generated\\merchants\\",exist_ok=True)
 
 merchants.to_csv(
-    f"C:\\Users\\Admin\\OneDrive\\Documents\\MyProjects\\data\\generated\\merchants\\merchants.csv",
+    f"C:\\MyProjects\\data\\generated\\merchants\\merchants.csv",
     index=False
 )
 

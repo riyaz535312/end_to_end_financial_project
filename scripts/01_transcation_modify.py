@@ -1,6 +1,6 @@
 import pandas as pd
 
-file_path=r"C:\Users\Admin\OneDrive\Documents\MyProjects\data\raw\PS_20174392719_log.csv"
+file_path=r"C:\\MyProjects\\data\\raw\\PS_20174392719_log.csv"
 #file_path="C:/Users/Admin/OneDrive/Documents/MyProjects/data/raw/PS_20174392719_log.csv"
 
 df=pd.read_csv(file_path)
